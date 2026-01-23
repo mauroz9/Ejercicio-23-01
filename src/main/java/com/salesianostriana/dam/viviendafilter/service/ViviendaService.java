@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ViviendaService {
 
-    public Page<Vivienda> getAll(Pageable pageable){
+    public Page<Vivienda> getAll(Pageable pageable, Speci){
 
     }
 }
