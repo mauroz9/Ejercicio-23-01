@@ -11,6 +11,8 @@ import org.springframework.data.jpa.domain.PredicateSpecification;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 @RequiredArgsConstructor
 public class ViviendaService {
@@ -36,5 +38,11 @@ public class ViviendaService {
         );
 
         return viviendaRepository.findBy(spec, q -> q.page(pageable));
+    }
+
+    public Vivienda save(Vivienda vivienda){
+        vivienda.setFechaPublicacion(LocalDate.now());
+
+        return viviendaRepository.save(vivienda);
     }
 }

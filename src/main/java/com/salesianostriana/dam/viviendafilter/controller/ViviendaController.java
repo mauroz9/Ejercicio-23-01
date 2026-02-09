@@ -1,19 +1,21 @@
 package com.salesianostriana.dam.viviendafilter.controller;
 
+import com.salesianostriana.dam.viviendafilter.dto.CreateViviendaDto;
 import com.salesianostriana.dam.viviendafilter.dto.FilterDto;
 import com.salesianostriana.dam.viviendafilter.dto.ViviendaResponse;
 import com.salesianostriana.dam.viviendafilter.model.EstadoVivienda;
 import com.salesianostriana.dam.viviendafilter.model.TipoVivienda;
+import com.salesianostriana.dam.viviendafilter.model.Vivienda;
 import com.salesianostriana.dam.viviendafilter.service.ViviendaService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -55,5 +57,29 @@ public class ViviendaController {
 
         return ResponseEntity.ok(viviendaService.getAll(pageable, dto).map(ViviendaResponse::of));
 
+    }
+
+    @PostMapping("/viviendas")
+    public ResponseEntity<ViviendaResponse> createVivienda(@Valid @RequestBody CreateViviendaDto createViviendaDto){
+
+        Vivienda vivienda = Vivienda.builder()
+                .titulo(createViviendaDto.titulo())
+                .descripcion(createViviendaDto.descripcion())
+                .ciudad(createViviendaDto.ciudad())
+                .provincia(createViviendaDto.provincia())
+                .precio(createViviendaDto.precio())
+                .metrosCuadrados(createViviendaDto.metrosCuadrados())
+                .habitaciones(createViviendaDto.habitaciones())
+                .banos(createViviendaDto.banos())
+                .tipo(createViviendaDto.tipo())
+                .estado(createViviendaDto.estado())
+                .ascensor(createViviendaDto.ascensor())
+                .terraza(createViviendaDto.terraza())
+                .garaje(createViviendaDto.garaje())
+                .disponible(createViviendaDto.disponible())
+                .build();
+
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(ViviendaResponse.of(viviendaService.save(vivienda)));
     }
 }
