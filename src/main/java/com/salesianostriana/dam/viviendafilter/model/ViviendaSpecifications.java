@@ -7,12 +7,12 @@ public interface ViviendaSpecifications {
 
     static PredicateSpecification<Vivienda> ciudadContains(String ciudad){
         return (from, builder) ->
-                ciudad == null ? null: builder.like(builder.lower(from.get("ciudad")), "%" + ciudad.toLowerCase() + "%");
+                ciudad == null ? builder.and(): builder.like(builder.lower(from.get("ciudad")), "%" + ciudad.toLowerCase() + "%");
     }
 
     static PredicateSpecification<Vivienda> provinciaEquals(String provincia){
         return(from, builder) ->
-                provincia == null ? null: builder.equal(builder.lower(from.get("provincia")), provincia.toLowerCase());
+                provincia == null ? builder.and(): builder.equal(builder.lower(from.get("provincia")), provincia.toLowerCase());
     }
 
     static PredicateSpecification<Vivienda> precioBetween(Integer precioMin, Integer precioMax){
@@ -35,41 +35,41 @@ public interface ViviendaSpecifications {
 
     static PredicateSpecification<Vivienda> habitacionesMin(Integer habitacionMinima){
         return (from, builder) ->
-                habitacionMinima == null ? null: builder.greaterThanOrEqualTo(from.get("habitaciones"), habitacionMinima);
+                habitacionMinima == null ? builder.and(): builder.greaterThanOrEqualTo(from.get("habitaciones"), habitacionMinima);
     }
 
     static PredicateSpecification<Vivienda> banosMin(Integer banosMinimo){
         return (from, builder) ->
-                banosMinimo == null ? null: builder.greaterThanOrEqualTo(from.get("banos"), banosMinimo);
+                banosMinimo == null ? builder.and(): builder.greaterThanOrEqualTo(from.get("banos"), banosMinimo);
     }
 
     static PredicateSpecification<Vivienda> tipoEquals(TipoVivienda tipoVivienda){
         return (from, builder) ->
-                tipoVivienda == null ? null: builder.equal(from.get("tipoVivienda"), tipoVivienda);
+                tipoVivienda == null ? builder.and(): builder.equal(from.get("tipoVivienda"), tipoVivienda);
     }
 
     static PredicateSpecification<Vivienda> estadoEquals(EstadoVivienda estadoVivienda){
         return (from, builder) ->
-                estadoVivienda == null ? null: builder.equal(from.get("estadoVivienda"), estadoVivienda);
+                estadoVivienda == null ? builder.and(): builder.equal(from.get("estadoVivienda"), estadoVivienda);
     }
 
     static PredicateSpecification<Vivienda> ascensorEquals(Boolean ascensor){
         return (from, builder) ->
-                ascensor == null ? null: builder.equal(from.get("ascensor"), ascensor);
+                ascensor == null ? builder.and(): builder.equal(from.get("ascensor"), ascensor);
     }
 
     static PredicateSpecification<Vivienda> terrazaEquals(Boolean terraza){
         return (from, builder) ->
-                terraza == null ? null: builder.equal(from.get("terraza"), terraza);
+                terraza == null ? builder.and(): builder.equal(from.get("terraza"), terraza);
     }
 
     static PredicateSpecification<Vivienda> garajeEquals(Boolean garaje){
         return (from, builder) ->
-                garaje == null ? null: builder.equal(from.get("garaje"), garaje);
+                garaje == null ? builder.and(): builder.equal(from.get("garaje"), garaje);
     }
 
     static PredicateSpecification<Vivienda> soloDisponibles(Boolean disponible){
         return (from, builder) ->
-                disponible == true ? builder.equal(from.get("disponible"), disponible) : null;
+                disponible == null || !disponible ? builder.and(): builder.equal(from.get("disponible"), disponible);
     }
 }

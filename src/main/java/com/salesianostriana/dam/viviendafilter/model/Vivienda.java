@@ -31,7 +31,7 @@ public class Vivienda {
     @Enumerated(EnumType.STRING)
     private TipoVivienda tipo;
     @Enumerated(EnumType.STRING)
-    private TipoVivienda estado;
+    private EstadoVivienda estado;
 
     private Boolean ascensor;
     private Boolean terraza;

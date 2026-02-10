@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ViviendaRepository extends JpaRepository<Vivienda, Long>, JpaSpecificationExecutor<Vivienda> {
 
-    Page<Vivienda> findAll(PredicateSpecification<Vivienda> spec, Pageable pageable);
+    //Page<Vivienda> findAll(PredicateSpecification<Vivienda> spec, Pageable pageable);
 
 }
